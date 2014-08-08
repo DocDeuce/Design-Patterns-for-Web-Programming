@@ -1,11 +1,3 @@
-
-import webapp2
-
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        p = Page()
-        self.response.write(p.print_out())
-
 class Page(object):
     def __init__(self):
         self.title = "MadLib"
@@ -29,7 +21,3 @@ class Page(object):
         all = self.head + self.body + self.close
         all = all.format(**locals())
         return all
-
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
