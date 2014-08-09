@@ -1,3 +1,9 @@
+'''
+Justin Henry
+DWP - Online
+8/8/2014
+'''
+
 #Prompts for user to enter strings and numbers
 noun = raw_input("Enter a noun ")
 adjective = raw_input("Enter an adjective ")
