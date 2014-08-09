@@ -17,16 +17,21 @@ def calcQuo(a, b):
     return quo
 per = calcQuo(num2, num3); #run function with variable parameters
 
+#Conditional to change article
+article =""
+if noun.startswith('a') or noun.startswith('e') or noun.startswith('i') or noun.startswith('o') or noun.startswith('u'):
+    article = "an"
+else:
+    article = "a"
 
-
-#Conditional
-
-print "There was once a " + noun + " with quite the " + adjective + " face. It tried to " + verb + " " + str(num1) + " times but was unsuccessful. It assumed, however, that if it tried " + str(num2) + " more times, it would finally succeed. With only " + str(num3) + " days left, it had better hurry and get to work. It has got to try to " + verb + " " + str(per) + " times each of the next " + str(num3) + " days to accomplish its goal. Let's watch it work!"
+#The madlib string
+print "There was once " + article + " " + noun + " with quite the " + adjective + " face. It tried to " + verb + " " + str(num1) + " times but was unsuccessful. It assumed, however, that if it tried " + str(num2) + " more times, it would finally succeed. With only " + str(num3) + " days left, it had better hurry and get to work. It has got to try to " + verb + " " + str(per) + " times each of the next " + str(num3) + " days to accomplish its goal. Let's watch it work!"
 
 #A loop to run as many times as the value of num2
 i = 1
-
 while i<=int(num2):
     print str(i) + " and a..."
     i = i+1
+    if i > int(num2): #When the loop reaches the value of num2
+        print "SUCCESS!"
 
