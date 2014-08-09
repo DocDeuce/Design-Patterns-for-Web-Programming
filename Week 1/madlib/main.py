@@ -1,12 +1,9 @@
-
-import webapp2
-from pages import Page
-
-class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        p = Page()
-        self.response.write(p.print_out())
-
-app = webapp2.WSGIApplication([
-    ('/', MainHandler)
-], debug=True)
+noun = raw_input("Enter a noun ")
+adjective = raw_input("Enter an adjective ")
+verb = raw_input("Enter a verb ")
+num1 = raw_input("Enter a number ")
+num2 = raw_input("Enter another number ")
+num3 = raw_input("Enter one more number ")
+words = dict() #create dictionary object
+words = {"Noun": noun, "Adjective": adjective, "Verb": verb}
+numbers = [num1, num2, num3]
