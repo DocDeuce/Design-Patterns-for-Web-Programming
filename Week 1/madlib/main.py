@@ -11,4 +11,10 @@ numbers = [num1, num2, num3]
 def calcQuo(a, b): #create function
     quo = int(a)/int(b) #turn parameters into integers so they can be divided
     return quo #return the quotient
+
 per = calcQuo(num2, num3); #run function with variable parameters
+
+i = 1
+while i<=int(num2): #loop as many times as the value of num2
+    print i
+    i = i+1 #increase the value of the variable by one
