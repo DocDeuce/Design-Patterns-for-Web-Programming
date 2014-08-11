@@ -40,6 +40,11 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
             email = self.request.GET["email"]
             destination = self.request.GET["destination"]
             purpose = self.request.GET["purpose"]
+            self.response.write("Hello, " + user + "! Check your email address, " + email + ", for confirmation of your " + purpose + " trip to " + destination + ". ")
+            if gender == "Male":
+                self.response.write("While in " + destination + " you might enjoy some of the sporting events that take place")
+            if gender =="Female":
+                self.response.write("You might enjoy some of the spas that " + destination + " has to offer.")
         else:
             self.response.write(page_head + page_body + page_close)
 
