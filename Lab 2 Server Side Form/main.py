@@ -18,7 +18,7 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
         page_body = '''
         <form method="GET" action="">
             <label>Name: </label><input type="text" name="user">
-            <label>Gender: </label><select>
+            <label>Gender: </label><select name="gender">
                 <option>Male</option>
                 <option>Female</option>
             </select><br/>
@@ -26,14 +26,22 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
             <label>Destination: </label><input type="text" name="destination"><br/>
             <p>What is the reason for your travel? </p><br/>
             <label>Business</label><input type="checkbox" name="purpose" value="business"><br/>
-            <label>Pleasure</label><input type="checkbox" name="purpose" value="pleasure">
+            <label>Pleasure</label><input type="checkbox" name="purpose" value="pleasure"><br/>
+            <input type="submit" value="Submit">
         </form>'''
 
         page_close = '''
     </body>
 </html>'''
 
-        self.response.write(page_head + page_body + page_close)
+        if self.request.GET:
+            user = self.request.GET["user"]
+            gender = self.request.GET["gender"]
+            email = self.request.GET["email"]
+            destination = self.request.GET["destination"]
+            purpose = self.request.GET["purpose"]
+        else:
+            self.response.write(page_head + page_body + page_close)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
