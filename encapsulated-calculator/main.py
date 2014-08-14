@@ -56,11 +56,18 @@ class Earnings(object):
         self.wed = 0
         self.thu = 0
         self.fri = 0
+        self.total = 0
         self.__contribution = 0
 
     @property
+    def total(self):
+        self.total = self.mon + self.tue + self.wed + self.thu + self.fri
+        return self.total
+
+    @property
     def contribution(self):
-        pass
+        self.__contribution = self.total/(m.total + z.total + w.total + k.total + j.total)
+        return self.__contribution
 
     @contribution.setter
     def contribution(self, adjustment):
