@@ -16,7 +16,7 @@ class MainHandler(webapp2.RequestHandler):
         m.wed = 85
         m.thu = 202
         m.fri = 237
-        self.response.write(m.total)
+        self.response.write(m.contribution)
 
         #Zoe
         z = Earnings()
@@ -58,21 +58,12 @@ class Earnings(object):
         self.thu = 0
         self.fri = 0
         self.__total = 0
-        self.__contribution = 0
 
     @property
     def total(self):
         self.__total = self.mon + self.tue + self.wed + self.thu + self.fri
         return self.__total
 
-    @property
-    def contribution(self):
-        self.__contribution = self.total/(m.total + z.total + w.total + k.total + j.total)
-        return self.__contribution
-
-    @contribution.setter
-    def contribution(self, adjustment):
-        pass
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
