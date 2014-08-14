@@ -16,7 +16,7 @@ class MainHandler(webapp2.RequestHandler):
         m.wed = 85
         m.thu = 202
         m.fri = 237
-        self.response.write(m.contribution)
+        self.response.write(str(m.total) + " " + str(m.average))
 
         #Zoe
         z = Earnings()
@@ -58,12 +58,17 @@ class Earnings(object):
         self.thu = 0
         self.fri = 0
         self.__total = 0
+        self.__average = 0
 
     @property
     def total(self):
         self.__total = self.mon + self.tue + self.wed + self.thu + self.fri
         return self.__total
 
+    @property
+    def average(self):
+        self.__average = (self.mon + self.tue + self.wed + self.thu + self.fri)/5
+        return self.__average
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
