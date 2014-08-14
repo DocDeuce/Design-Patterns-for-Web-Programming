@@ -8,7 +8,28 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        pass
+        #Mal
+
+        #Zoe
+
+        #Wash
+
+        #Kaylee
+
+        #Jayne
+
+class Earnings(object):
+    def __init__(self):
+        pass
+
+    @property
+    def contribution(self):
+        pass
+
+    @contribution.setter
+    def contribution(self, adjustment):
+        pass
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
