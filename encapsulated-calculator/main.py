@@ -10,18 +10,53 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         pass
         #Mal
+        m = Earnings()
+        m.mon =
+        m.tue =
+        m.wed =
+        m.thu =
+        m.fri =
 
         #Zoe
+        z = Earnings()
+        z.mon =
+        z.tue =
+        z.wed =
+        z.thu =
+        z.fri =
 
         #Wash
+        w = Earnings()
+        w.mon =
+        w.tue =
+        w.wed =
+        w.thu =
+        w.fri =
 
         #Kaylee
+        k = Earnings()
+        k.mon =
+        k.tue =
+        k.wed =
+        k.thu =
+        k.fri =
 
         #Jayne
+        j = Earnings()
+        j.mon =
+        j.tue =
+        j.wed =
+        j.thu =
+        j.fri =
 
 class Earnings(object):
     def __init__(self):
-        pass
+        self.mon = 0
+        self.tue = 0
+        self.wed = 0
+        self.thu = 0
+        self.fri = 0
+        self.__contribution = 0
 
     @property
     def contribution(self):
