@@ -16,6 +16,7 @@ class MainHandler(webapp2.RequestHandler):
         m.wed = 85
         m.thu = 202
         m.fri = 237
+        m.total = 1154
         self.response.write(str(m.total) + " " + str(m.average))
 
         #Zoe
@@ -25,6 +26,8 @@ class MainHandler(webapp2.RequestHandler):
         z.wed = 76
         z.thu = 189
         z.fri = 255
+        z.calc_total()
+        self.response.write(str(z.total) + " " + str(z.average))
 
         #Wash
         w = Earnings()
@@ -62,8 +65,14 @@ class Earnings(object):
 
     @property
     def total(self):
-        self.__total = self.mon + self.tue + self.wed + self.thu + self.fri
         return self.__total
+
+    @total.setter
+    def total(self, adjustment):
+        self.__total = adjustment
+
+    def calc_total(self):
+        self.__total = self.mon + self.tue + self.wed + self.thu + self.fri
 
     @property
     def average(self):
