@@ -1,11 +1,13 @@
 body{
     width: 100%;
+    background-color: azure;
 }
 form{
     width: 400px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid dodgerblue;
+    background-color: rgba(255,255,255,.15);
 }
 label{
     display: block;
@@ -40,4 +42,14 @@ p{
     padding-right: 5px;
     width: 245px;
     height: 40px;
+}
+.result{
+    width: 400px;
+    height: auto;
+    padding: 10px;
+    float: none;
+    margin: 30px auto;
+    background-color: rgba(255,255,255,.15);
+    border: 1px solid dodgerblue;
+    line-height: 25px;
 }

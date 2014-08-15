@@ -16,7 +16,7 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
     </head>
     <body>'''
 
-        page_body = '''
+        page_body_form = '''
         <form method="GET" action="">
             <label>Gender: </label><select name="gender" placeholder="select">
                 <option selected>Select</option>
@@ -24,7 +24,6 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
                 <option>Female</option>
             </select><br/>
             <label>Name: </label><input type="text" name="user"><br/>
-
             <label>Email:</label><input type="text" name="email"><br/>
             <label>Destination:</label><input type="text" name="destination"><br/>
             <p>What is the reason for your travel? </p>
@@ -32,6 +31,9 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
             <label class="check">Pleasure</label><input type="checkbox" name="purpose" value="pleasure"><br/>
             <input type="submit" value="Submit">
         </form>'''
+
+        p_open = '''<p class="result">'''
+        p_close = '''</p>'''
 
         page_close = '''
     </body>
@@ -43,13 +45,18 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
             email = self.request.GET["email"]
             destination = self.request.GET["destination"]
             purpose = self.request.GET["purpose"]
-            self.response.write("Hello, " + user + "! Check your email address, " + email + ", for confirmation of your " + purpose + " trip to " + destination + ". ")
+            result = "Hello, " + user + "! Check your email address, " + email + ", for confirmation of your " + purpose + " trip to " + destination + ". "
+            actvt = ""
+
             if gender == "Male":
-                self.response.write("While in " + destination + " you might enjoy some of the sporting events that take place")
+                actvt = "While in " + destination + " you might enjoy some of the sporting events that take place."
             if gender == "Female":
-                self.response.write("You might enjoy some of the spas that " + destination + " has to offer.")
+                actvt = "You might enjoy some of the spas that " + destination + " has to offer."
+
+            self.response.write(page_head + p_open + result + actvt + p_close + page_close)
+
         else:
-            self.response.write(page_head + page_body + page_close)
+            self.response.write(page_head + page_body_form + page_close)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
