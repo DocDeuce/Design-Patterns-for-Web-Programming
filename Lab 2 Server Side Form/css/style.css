@@ -1,3 +1,43 @@
 body{
-    background: red;
+    width: 100%;
+}
+form{
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid dodgerblue;
+}
+label{
+    display: block;
+    width: 120px;
+    float: left;
+    margin-bottom: 10px;
+}
+.check{
+    display: inline-block;
+    float: none;
+    width: 70px;
+}
+input{
+    width: 240px;
+    margin-bottom: 10px;
+
+}
+input[type="checkbox"]{
+    width: 20px;
+}
+input[type="submit"]{
+    margin-top: 10px;
+    width: 370px;
+}
+select{
+    margin-bottom: 10px;
+}
+p{
+    display: block;
+    float: left;
+    margin: 0;
+    padding-right: 5px;
+    width: 245px;
+    height: 40px;
 }

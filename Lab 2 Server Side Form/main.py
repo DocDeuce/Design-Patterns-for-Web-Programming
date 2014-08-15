@@ -18,16 +18,18 @@ class MainHandler(webapp2.RequestHandler): #Declaring a class
 
         page_body = '''
         <form method="GET" action="">
-            <label>Name: </label><input type="text" name="user">
-            <label>Gender: </label><select name="gender">
+            <label>Gender: </label><select name="gender" placeholder="select">
+                <option selected>Select</option>
                 <option>Male</option>
                 <option>Female</option>
             </select><br/>
-            <label>Email: </label><input type="text" name="email"><br/>
-            <label>Destination: </label><input type="text" name="destination"><br/>
-            <p>What is the reason for your travel? </p><br/>
-            <label>Business</label><input type="checkbox" name="purpose" value="business"><br/>
-            <label>Pleasure</label><input type="checkbox" name="purpose" value="pleasure"><br/>
+            <label>Name: </label><input type="text" name="user"><br/>
+
+            <label>Email:</label><input type="text" name="email"><br/>
+            <label>Destination:</label><input type="text" name="destination"><br/>
+            <p>What is the reason for your travel? </p>
+            <label class="check">Business</label><input type="checkbox" name="purpose" value="business"><br/>
+            <label class="check">Pleasure</label><input type="checkbox" name="purpose" value="pleasure"><br/>
             <input type="submit" value="Submit">
         </form>'''
 
