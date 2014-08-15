@@ -8,7 +8,6 @@ import webapp2
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        pass
         #Mal
         m = Earnings()
         m.mon = 150
@@ -16,7 +15,7 @@ class MainHandler(webapp2.RequestHandler):
         m.wed = 85
         m.thu = 202
         m.fri = 237
-        m.total = 1154
+        m.total = 1154 #The captain can make adjustments
         self.response.write(str(m.total) + " " + str(m.average))
 
         #Zoe
@@ -78,6 +77,8 @@ class Earnings(object):
     def average(self):
         self.__average = (self.mon + self.tue + self.wed + self.thu + self.fri)/5
         return self.__average
+
+class Button(object):
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
