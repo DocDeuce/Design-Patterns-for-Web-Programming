@@ -3,7 +3,7 @@ class Page(object):
         page_head = '''<!DOCTYPE html>
 <html>
     <head>
-        <title>Simple Form</title>
+        <title>Encapsulated Calculator</title>
         <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>'''

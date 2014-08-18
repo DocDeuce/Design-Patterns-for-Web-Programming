@@ -5,65 +5,34 @@ DPW - Online
 Encapsulated Calculator
 '''
 import webapp2
+from pages import pages
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        #Mal
-        m = Earnings()
-        m.mon = 150
-        m.tue = 320
-        m.wed = 85
-        m.thu = 202
-        m.fri = 237
-        m.total = 1154 #The captain can make adjustments
-        self.response.write(str(m.total) + " " + str(m.average))
+        crew = dict()
+        crew = {"Mal":[150,320,85,202,237],
+                "Zoe":[176,278,76,189,255],
+                "Wash":[97,156,54,101,166],
+                "Kaylee":[92,123,48,88,115],
+                "Jayne":[142,258,72,163,240]}
 
-        #Zoe
-        z = Earnings()
-        z.mon = 176
-        z.tue = 278
-        z.wed = 76
-        z.thu = 189
-        z.fri = 255
-        z.calc_total()
-        self.response.write(str(z.total) + " " + str(z.average))
-
-        #Wash
-        w = Earnings()
-        w.mon = 97
-        w.tue = 156
-        w.wed = 54
-        w.thu = 101
-        w.fri = 166
-
-        #Kaylee
-        k = Earnings()
-        k.mon = 92
-        k.tue = 123
-        k.wed = 48
-        k.thu = 88
-        k.fri = 115
-
-        #Jayne
-        j = Earnings()
-        j.mon = 142
-        j.tue = 258
-        j.wed = 72
-        j.thu = 163
-        j.fri = 240
+        for c in crew:
+            e = Earnings()
+            e.who = c
+            e.pay = crew.get(c, "none")
+            e.calc_total()
+            print e.who + " " + str(e.total)
 
 class Earnings(object):
     def __init__(self):
-        self.mon = 0
-        self.tue = 0
-        self.wed = 0
-        self.thu = 0
-        self.fri = 0
+        self.who = ""
+        self.pay = 0
         self.__total = 0
-        self.__average = 0
+
 
     @property
     def total(self):
+        #self.__total = sum(self.pay)
         return self.__total
 
     @total.setter
@@ -71,14 +40,7 @@ class Earnings(object):
         self.__total = adjustment
 
     def calc_total(self):
-        self.__total = self.mon + self.tue + self.wed + self.thu + self.fri
-
-    @property
-    def average(self):
-        self.__average = (self.mon + self.tue + self.wed + self.thu + self.fri)/5
-        return self.__average
-
-class Button(object):
+        self.__total = sum(self.pay)
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
