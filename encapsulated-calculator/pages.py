@@ -1,6 +1,6 @@
 class Page(object):
     def __init__(self):
-        page_head = '''<!DOCTYPE html>
+        self.page_head = '''<!DOCTYPE html>
 <html>
     <head>
         <title>Encapsulated Calculator</title>
@@ -8,9 +8,9 @@ class Page(object):
     </head>
     <body>'''
 
-        page_body = '''
+        self.page_body = '''
     '''
 
-        page_close = '''
+        self.page_close = '''
     </body>
 </html>'''

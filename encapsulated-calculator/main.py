@@ -5,7 +5,7 @@ DPW - Online
 Encapsulated Calculator
 '''
 import webapp2
-from pages import pages
+from pages import Page
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -28,7 +28,6 @@ class Earnings(object):
         self.who = ""
         self.pay = 0
         self.__total = 0
-
 
     @property
     def total(self):
