@@ -9,7 +9,6 @@ from pages import Page
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        crew = dict()
         crew = {"Mal":[150,320,85,202,237],
                 "Zoe":[176,278,76,189,255],
                 "Wash":[97,156,54,101,166],
@@ -22,6 +21,12 @@ class MainHandler(webapp2.RequestHandler):
             e.pay = crew.get(c, "none")
             e.calc_total()
             print e.who + " " + str(e.total)
+            p = Page()
+            p.comp = crew.get(c, "none")
+            print p.crew_build()
+
+        g = Page
+        self.response.write()
 
 class Earnings(object):
     def __init__(self):
@@ -31,7 +36,6 @@ class Earnings(object):
 
     @property
     def total(self):
-        #self.__total = sum(self.pay)
         return self.__total
 
     @total.setter
