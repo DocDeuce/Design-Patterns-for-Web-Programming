@@ -11,7 +11,7 @@ class Page(object):
         self.page_body = '''
     '''
         self.page_form = '''
-        <form method="POST" action="">
+        <form method="GET" action="">
             <input type="hidden" name="mon" value="{self.comp[0]}">
             <input type="hidden" name="tue" value="{self.comp[1]}">
             <input type="hidden" name="wed" value="{self.comp[2]}">
