@@ -10,6 +10,7 @@ from pages import Page
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         g = Page()
+
         self.response.write(g.page_head)
 
 
@@ -20,26 +21,25 @@ class MainHandler(webapp2.RequestHandler):
                 "Jayne":[142,258,72,163,240]}
 
         for c in crew:
-            e = Earnings()
-            e.who = c
-            e.pay = crew.get(c, "none")
-            e.calc_total()
-            print e.who + " " + str(e.total)
-            
-            p = Page()
-            p.comp = crew.get(c, "none")
-            self.response.write(p.crew_build())
+            g.who = c
+            g.comp = crew.get(c, "none")
+            g.total_spot = ""
+            self.response.write(g.crew_build() + g.calculate())
+
+
 
         if self.request.GET:
             print "working"
-
-
+            r = self.request.GET
+            e = Earnings()
+            e.pay = [int(r["mon"]),int(r["tue"]),int(r["wed"]),int(r["thu"]),int(r["fri"])]
+            e.calc_total()
+            g.total_spot = #e.total
 
         self.response.write(g.page_close)
 
 class Earnings(object):
     def __init__(self):
-        self.who = ""
         self.pay = 0
         self.__total = 0
 
