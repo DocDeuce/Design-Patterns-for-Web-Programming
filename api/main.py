@@ -14,14 +14,15 @@ class MainHandler(webapp2.RequestHandler):
         p.input = [['text', 'zip', 'Zip Code'], ['submit', 'Submit']] #An array of arrays used to set html input attributes
         self.response.write(p.display()) #displays html page from FormPage class
         if self.request.GET: #If form data has ben submitted, do the following
-            zip = self.request.GET['zip'] #sets zip variable value to what is received from input
-            url = "http://whoismyrepresentative.com/getall_mems.php?zip=" + zip #For accessing the api information and the variable "zip" to be submitted via html form input
-            request = urllib2.Request(url) #Sets variable for urllib2 to request data from the url listed above
-            opener = urllib2.build_opener() #Creates object to receive data from url
-            result = opener.open(request) #Use the receiving object to open the data requested from the url
-            xmldoc = minidom.parse(result) #Parse the result of the request
-            self.content = "<br/>" #Initiate the display of the received data
-            list = xmldoc.getElementsByTagName('rep') #Creates an array of the primary objects received from the request
+            rm = RepModel()
+            rm.zip = self.request.GET['zip'] #sets zip variable value to what is received from input
+            rm.callApi()
+
+            rv = RepView() #Calls the method to create the data display
+            rv.rdos = rm.dos #Takes data from Model and gives to View class
+            self.response.write(rv.content)
+
+            '''
             for item in list: #Iterate though the list of results and do the following for each to build and display the information
                 self.content += "Name: "+item.attributes["name"].value
                 self.content += " Party: "+item.attributes["party"].value
@@ -31,7 +32,77 @@ class MainHandler(webapp2.RequestHandler):
                 self.content += " Website: "+item.attributes["link"].value
                 self.content += "<br/>"
 
-            self.response.write(self.content) #Display the accumulated content
+            self.response.write(self.content)''' #Display the accumulated content
+
+class RepView(object):
+    '''Handle the data display'''
+    def __init__(self):
+        self.__rdos = []
+        self.__content = "<br/>" #Initiate the display of the received data
+
+    def update(self):
+        for do in self.__rdos:
+            self.__content += do
+
+    @property
+    def content(self):
+        return self.__content
+
+    @property
+    def rdos(self):
+        pass
+
+    @rdos.setter
+    def rdos(self, arr):
+        self.__repdos = arr
+
+
+class RepModel(object):
+    ''' receiving, sorting, and parsing data '''
+    def __init__(self):
+        self.__url = "http://whoismyrepresentative.com/getall_mems.php?zip="  #For accessing the api information
+        self.__zip = "" #store zip
+        self.__xmldoc = ""
+
+    def callApi(self):
+        request = urllib2.Request(self.__url + self.__zip) #Sets variable for urllib2 to request data from the url listed above
+        opener = urllib2.build_opener() #Creates object to receive data from url
+        result = opener.open(request) #Use the receiving object to open the data requested from the url
+        self.__xmldoc = minidom.parse(result) #Parse the result of the request
+        #Sort the data
+        list = self.__xmldoc.getElementsByTagName('rep') #Creates an array of the primary objects received from the request
+        self._dos = []
+        for rep in list:
+            do = RepData()
+            do.name = rep.attributes["name"].value
+            do.party = rep.attributes["party"].value
+            do. district = rep.attributes["district"].value
+            do.phone = rep.attributes["phone"].value
+            do.office = rep.attributes["office"].value
+            do.website = rep.attributes["link"].value
+            self._dos.append(do)
+
+    @property
+    def dos(self):
+        return self._dos
+
+    @property
+    def zip(self):
+        pass
+
+    @zip.setter
+    def zip(self, z):
+        self.__zip = z
+
+class RepData(object):
+    ''' this data object holds the data received by the model and shown by the view '''
+    def __init__(self):
+        self.name = ""
+        self.party = ""
+        self.district = ""
+        self.phone = ""
+        self.office = ""
+        self.website = ""
 
 class Page(object): #A superclass to contain the necessary html for building a page
     def __init__(self):
@@ -39,7 +110,7 @@ class Page(object): #A superclass to contain the necessary html for building a p
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Proof of Concept</title>
+        <title>Final Project</title>
         <link href="css/style.css" rel="stylesheet" type="text/css" />
     </head>
     <body>'''
