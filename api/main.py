@@ -13,7 +13,7 @@ class MainHandler(webapp2.RequestHandler):
         p = FormPage() #Calls the subclass of the superclass "Form"
         p.input = [['text', 'zip', 'Zip Code'], ['submit', 'Submit']] #An array of arrays used to set html input attributes
         self.response.write(p.display()) #displays html page from FormPage class
-        if self.request.GET: #If form data has ben submitted, do the following
+        if self.request.GET: #If form data has been submitted, do the following
             rm = RepModel()
             rm.zip = self.request.GET['zip'] #sets zip variable value to what is received from input
             rm.callApi()
@@ -24,12 +24,12 @@ class MainHandler(webapp2.RequestHandler):
 
             '''
             for item in list: #Iterate though the list of results and do the following for each to build and display the information
-                self.content += "Name: "+item.attributes["name"].value
-                self.content += " Party: "+item.attributes["party"].value
-                self.content += " District: "+item.attributes["district"].value
-                self.content += " Phone: "+item.attributes["phone"].value
-                self.content += " Office "+item.attributes["office"].value
-                self.content += " Website: "+item.attributes["link"].value
+                self.content += "Name: "+           item.attributes["name"].value
+                self.content += " Party: "+         item.attributes["party"].value
+                self.content += " District: "+      item.attributes["district"].value
+                self.content += " Phone: "+         item.attributes["phone"].value
+                self.content += " Office "+         item.attributes["office"].value
+                self.content += " Website: "+       item.attributes["link"].value
                 self.content += "<br/>"
 
             self.response.write(self.content)''' #Display the accumulated content
@@ -38,11 +38,11 @@ class RepView(object):
     '''Handle the data display'''
     def __init__(self):
         self.__rdos = []
-        self.__content = "<br/>" #Initiate the display of the received data
+        self.__content = "" #Initiate the display of the received data
 
     def update(self):
         for do in self.__rdos:
-            self.__content += do
+            self.__content += "Name: " + do.name + " Party: " + do.party + " District: " + do.district + " Phone: " + do.phone + " Office " + do.office + " Website: " + do.website + "<br/ >"
 
     @property
     def content(self):
@@ -54,7 +54,8 @@ class RepView(object):
 
     @rdos.setter
     def rdos(self, arr):
-        self.__repdos = arr
+        self.__rdos = arr
+        self.update()
 
 
 class RepModel(object):
@@ -76,7 +77,7 @@ class RepModel(object):
             do = RepData()
             do.name = rep.attributes["name"].value
             do.party = rep.attributes["party"].value
-            do. district = rep.attributes["district"].value
+            do.district = rep.attributes["district"].value
             do.phone = rep.attributes["phone"].value
             do.office = rep.attributes["office"].value
             do.website = rep.attributes["link"].value
