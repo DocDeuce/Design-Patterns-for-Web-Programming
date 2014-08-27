@@ -12,27 +12,16 @@ class MainHandler(webapp2.RequestHandler):
     def get(self):
         p = FormPage() #Calls the subclass of the superclass "Form"
         p.input = [['text', 'zip', 'Zip Code'], ['submit', 'Submit']] #An array of arrays used to set html input attributes
-        self.response.write(p.display()) #displays html page from FormPage class
+
         if self.request.GET: #If form data has been submitted, do the following
             rm = RepModel()
             rm.zip = self.request.GET['zip'] #sets zip variable value to what is received from input
             rm.callApi()
-
             rv = RepView() #Calls the method to create the data display
             rv.rdos = rm.dos #Takes data from Model and gives to View class
-            self.response.write(rv.content)
+            p._page_body = rv.content
 
-            '''
-            for item in list: #Iterate though the list of results and do the following for each to build and display the information
-                self.content += "Name: "+           item.attributes["name"].value
-                self.content += " Party: "+         item.attributes["party"].value
-                self.content += " District: "+      item.attributes["district"].value
-                self.content += " Phone: "+         item.attributes["phone"].value
-                self.content += " Office "+         item.attributes["office"].value
-                self.content += " Website: "+       item.attributes["link"].value
-                self.content += "<br/>"
-
-            self.response.write(self.content)''' #Display the accumulated content
+        self.response.write(p.display()) #displays html page from FormPage class
 
 class RepView(object):
     '''Handle the data display'''
@@ -43,7 +32,7 @@ class RepView(object):
     def update(self):
         for do in self.__rdos:
             self.__content += "Name: " + do.name + " Party: " + do.party + " District: " + do.district + " Phone: " + do.phone + " Office " + do.office + " Website: " + do.website + "<br/ >"
-
+            #Display the accumulated content
     @property
     def content(self):
         return self.__content
@@ -56,7 +45,6 @@ class RepView(object):
     def rdos(self, arr):
         self.__rdos = arr
         self.update()
-
 
 class RepModel(object):
     ''' receiving, sorting, and parsing data '''
@@ -145,7 +133,7 @@ class FormPage(Page): #A subclass of the Page superclass that creates the html f
                 self._form_inputs += '" />' #Close the input tag
 
     def display(self): #Method for displaying html page
-        return self._page_head + self._page_body + self._form_open + self._form_inputs + self._form_close + self._page_close
+        return self._page_head + self._form_open + self._form_inputs + self._form_close + self._page_body + self._page_close
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
