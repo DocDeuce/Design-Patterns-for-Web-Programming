@@ -20,16 +20,25 @@ class MainHandler(webapp2.RequestHandler):
             rv = RepView() #Calls the method to create the data display
             rv.rdos = rm.dos #Takes data from Model and gives to View class
             p._page_body = rv.content
-
+            p._footer_text = "<p>let's see</p>"
+        else:
+            p._page_body = '''
+        <h1>FIND</h1>
+        <h1>REACH</h1>
+        <h1>EFFECT</h1>
+            '''
+            p._footer_text = "<p>or this</p>"
         self.response.write(p.display()) #displays html page from FormPage class
+        #print rv.content
 
 class RepView(object):
     '''Handle the data display'''
     def __init__(self):
         self.__rdos = []
-        self.__content = "" #Initiate the display of the received data
+        self.__content = "" #self.sens() + self.reps() #Initiate the display of the received data
         self.__reps = ""
         self.__sens = ""
+
     def update(self):
         for do in self.__rdos:
             whosit = "<td>" + do.name + "</td><td>" + do.party + "</td><td>" + do.district + "</td><td>" + do.phone + "</td><td>" + do.office + "</td><td>" + do.website + "</tr>"
@@ -37,7 +46,22 @@ class RepView(object):
                 self.__reps += whosit
             else:
                 self.__sens += whosit
-        print self.__reps
+        self.__content += self.sens() + self.reps()
+
+    def sens(self):
+        t = Table()
+        t.position = "Senators"
+        t.description = "Your senators..."
+        t.ps = self.__sens
+        return t.construct()
+
+
+    def reps(self):
+        t = Table()
+        t.position = "Representatives"
+        t.description = "Your representatives..."
+        t.ps = self.__reps
+        return t.construct()
             #Display the accumulated content
 
     @property
@@ -113,6 +137,7 @@ class Page(object): #A superclass to contain the necessary html for building a p
         self._page_body = ""
         self._footer_open = '''
         <footer>'''
+        self._footer_text = ""
         self._page_close = '''
         </footer>
     </body>
@@ -143,11 +168,11 @@ class FormPage(Page): #A subclass of the Page superclass that creates the html f
                 self._form_inputs += '" />' #Close the input tag
 
     def display(self): #Method for displaying html page
-        return self._page_head + self._page_body + self._footer_open + self._form_open + self._form_inputs + self._form_close + self._page_close
+        return self._page_head + self._page_body + self._footer_open + self._footer_text + self._form_open + self._form_inputs + self._form_close + self._page_close
 
-class Table(Page):
+class Table(object):
     def __init__(self):
-        super(Table, self).__init__()
+        #super(Table, self).__init__()
         self._pubserv = '''
         <article>
             <section>
@@ -175,7 +200,7 @@ class Table(Page):
     def construct(self):
         servants = self._pubserv
         servants = servants.format(**locals())
-        print servants
+        return servants
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
