@@ -28,11 +28,18 @@ class RepView(object):
     def __init__(self):
         self.__rdos = []
         self.__content = "" #Initiate the display of the received data
-
+        self.__reps = ""
+        self.__sens = ""
     def update(self):
         for do in self.__rdos:
-            self.__content += "Name: " + do.name + " Party: " + do.party + " District: " + do.district + " Phone: " + do.phone + " Office " + do.office + " Website: " + do.website + "<br/ >"
+            whosit = "<td>" + do.name + "</td><td>" + do.party + "</td><td>" + do.district + "</td><td>" + do.phone + "</td><td>" + do.office + "</td><td>" + do.website + "</tr>"
+            if len(do.district) < 3:
+                self.__reps += whosit
+            else:
+                self.__sens += whosit
+        print self.__reps
             #Display the accumulated content
+
     @property
     def content(self):
         return self.__content
@@ -137,6 +144,38 @@ class FormPage(Page): #A subclass of the Page superclass that creates the html f
 
     def display(self): #Method for displaying html page
         return self._page_head + self._page_body + self._footer_open + self._form_open + self._form_inputs + self._form_close + self._page_close
+
+class Table(Page):
+    def __init__(self):
+        super(Table, self).__init__()
+        self._pubserv = '''
+        <article>
+            <section>
+                <h2>{self.position}</h2>
+                <p>{self.description}</p>
+            </section>
+            <section>
+                <table>
+                    <tr>
+                        <th>NAME</th>
+                        <th>PARTY</th>
+                        <th>DISTRICT</th>
+                        <th>PHONE</th>
+                        <th>OFFICE</th>
+                        <th>WEBSITE</th>
+                    </tr>
+                    <tr>
+                        {self.ps}
+                    </tr>
+                </table>
+            </section>
+        </article>
+        '''
+
+    def construct(self):
+        servants = self._pubserv
+        servants = servants.format(**locals())
+        print servants
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
