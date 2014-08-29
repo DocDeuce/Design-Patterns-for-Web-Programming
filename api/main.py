@@ -104,7 +104,10 @@ class Page(object): #A superclass to contain the necessary html for building a p
     </head>
     <body>'''
         self._page_body = ""
+        self._footer_open = '''
+        <footer>'''
         self._page_close = '''
+        </footer>
     </body>
 </html>'''
 
@@ -133,7 +136,7 @@ class FormPage(Page): #A subclass of the Page superclass that creates the html f
                 self._form_inputs += '" />' #Close the input tag
 
     def display(self): #Method for displaying html page
-        return self._page_head + self._form_open + self._form_inputs + self._form_close + self._page_body + self._page_close
+        return self._page_head + self._page_body + self._footer_open + self._form_open + self._form_inputs + self._form_close + self._page_close
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
