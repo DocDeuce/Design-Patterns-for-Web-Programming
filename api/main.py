@@ -20,14 +20,14 @@ class MainHandler(webapp2.RequestHandler):
             rv = RepView() #Calls the method to create the data display
             rv.rdos = rm.dos #Takes data from Model and gives to View class
             p._page_body = rv.content
-            p._footer_text = "<p>let's see</p>"
+            p._footer_text = "<p>Enter another zip code to see the representatives for a different area</p>"
         else:
             p._page_body = '''
         <h1>FIND</h1>
         <h1>REACH</h1>
         <h1>EFFECT</h1>
             '''
-            p._footer_text = "<p>or this</p>"
+            p._footer_text = "<p>Enter your zip code to find your senators and representatives</p>"
         self.response.write(p.display()) #displays html page from FormPage class
         #print rv.content
 
