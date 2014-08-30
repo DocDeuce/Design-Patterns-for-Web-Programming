@@ -23,9 +23,17 @@ class MainHandler(webapp2.RequestHandler):
             p._footer_text = "<p>Enter another zip code to see the representatives for a different area</p>"
         else:
             p._page_body = '''
-        <h1>FIND</h1>
-        <h1>REACH</h1>
-        <h1>EFFECT</h1>
+        <div class="home">
+            <section>
+                <p><span class="xxl">KNOW</span> who represents you in the Senate and House of Representatives</p>
+            </section>
+            <section>
+                <p><span class="xxl">REACH</span> your representatives by mail, phone, or email</p>
+            </section>
+            <section>
+                <p><span class="xxl">EFFECT</span> the policies and laws that effect you</p>
+            </section>
+        </div>
             '''
             p._footer_text = "<p>Enter your zip code to find your senators and representatives</p>"
         self.response.write(p.display()) #displays html page from FormPage class
