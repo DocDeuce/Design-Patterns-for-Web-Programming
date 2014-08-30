@@ -54,12 +54,12 @@ class RepView(object):
                 self.__reps += whosit
             else:
                 self.__sens += whosit
-        self.__content += self.sens() + self.reps()
+        self.__content += "<div class='show'>" + self.sens() + self.reps() + "</div>"
 
     def sens(self):
         t = Table()
         t.position = "Senators"
-        t.description = "Your senators..."
+        t.description = "Your senators play a role in deciding new laws and confirming people for political positions. Contact your senators to let them know how you feel about any new proposed laws and potential judges."
         t.ps = self.__sens
         return t.construct()
 
@@ -67,7 +67,7 @@ class RepView(object):
     def reps(self):
         t = Table()
         t.position = "Representatives"
-        t.description = "Your representatives..."
+        t.description = "Your representatives can in itiate bills which may turn into laws They can also impeach people. Contact your representatives to let them know about laws you would like to see in and people you would like to see out."
         t.ps = self.__reps
         return t.construct()
             #Display the accumulated content
