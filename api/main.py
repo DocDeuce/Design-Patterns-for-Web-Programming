@@ -11,7 +11,7 @@ from xml.dom import minidom # Used to parse through received data
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         p = FormPage() #Calls the subclass of the superclass "Form"
-        p.input = [['text', 'zip', 'Zip Code'], ['submit', 'Submit']] #An array of arrays used to set html input attributes
+        p.input = [['text', 'zip', 'Zip Code'], ['submit', 'submit', 'KNOW']] #An array of arrays used to set html input attributes
 
         if self.request.GET: #If form data has been submitted, do the following
             rm = RepModel()
@@ -41,7 +41,7 @@ class RepView(object):
 
     def update(self):
         for do in self.__rdos:
-            whosit = "<td>" + do.name + "</td><td>" + do.party + "</td><td>" + do.district + "</td><td>" + do.phone + "</td><td>" + do.office + "</td><td>" + do.website + "</tr>"
+            whosit = "<tr><td>" + do.name + "</td><td>" + do.party + "</td><td>" + do.district + "</td><td>" + do.phone + "</td><td>" + do.office + "</td><td>" + do.website + "</td></tr>"
             if len(do.district) < 3:
                 self.__reps += whosit
             else:
@@ -162,10 +162,10 @@ class FormPage(Page): #A subclass of the Page superclass that creates the html f
         self.__input = arr #Access the private variable
         for item in arr: #Iterate through the array and perform the follwing
             self._form_inputs += '<input type="' + item[0] + '" name="' + item[1] #creates html input and sets attribute values
-            try: #Attemt to do the following if the means are available
-                self._form_inputs += '" placeholder="' + item[2] +'" />' #Adds placeholder attribute and its value to input and closes it
-            except: #if the above cannot be done, do the following
-                self._form_inputs += '" />' #Close the input tag
+            if item[0] == 'submit': #Attemt to do the following if the means are available
+                self._form_inputs += '" value="' + item[2] +'" />' #Adds placeholder attribute and its value to input and closes it
+            else: #if the above cannot be done, do the following
+                self._form_inputs += '" placeholder="' + item[2] +'" />' #Close the input tag
 
     def display(self): #Method for displaying html page
         return self._page_head + self._page_body + self._footer_open + self._footer_text + self._form_open + self._form_inputs + self._form_close + self._page_close
@@ -189,9 +189,7 @@ class Table(object):
                         <th>OFFICE</th>
                         <th>WEBSITE</th>
                     </tr>
-                    <tr>
-                        {self.ps}
-                    </tr>
+                    {self.ps}
                 </table>
             </section>
         </article>

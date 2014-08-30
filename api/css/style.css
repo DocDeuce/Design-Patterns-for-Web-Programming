@@ -6,4 +6,18 @@ body{
 footer{
     position: fixed;
     bottom: 0;
+    height: 50px;
+    width: 100%;
+    background-color: gold;
+
+}
+footer p{
+    display: block;
+    width: 700px;
+    float: left;
+}
+form{
+    display: inline-block;
+    width: 300px;
+    padding: 0;
 }
